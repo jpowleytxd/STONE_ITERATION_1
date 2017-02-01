@@ -34,7 +34,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   //Prep Images
   $image = file_get_contents('../sites/_defaults/image.html');
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg', $image);
+  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
 
   //Prep Spacer
   $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');
@@ -58,12 +58,19 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $voucher = file_get_contents('../sites/' . $brand . '/bespoke_blocks/' . $brand . '_voucher.html');
   $voucherSearch = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
   $voucher = str_replace($voucherSearch, $voucherInstructions, $voucher);
+  $voucher = str_replace('$vouchercode$', $welcomeRows[11], $voucher);
+  $search = '/<!--valid_from_start-->\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*<!--valid_from_end-->/';
+  $voucher = preg_replace($search, '', $voucher);
+  $search = '/<!--customer_start-->\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*<!--customer_end-->/';
+  $voucher = preg_replace($search, '', $voucher);
   $voucher = marginBuilder($voucher);
 
   //Prep Text Two
   $welcomeRows[8] = str_replace('"', '', $welcomeRows[8]);
   $textTwo = str_replace('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales vehicula tellus pellentesque malesuada. Integer malesuada magna felis, id rutrum leo volutpat eget. Morbi finibus et diam in placerat. Suspendisse magna enim, pharetra at erat vel, consequat facilisis mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla est velit, lobortis eu tincidunt sit amet, semper et lorem.', $welcomeRows[8], $textTwo);
   $textTwo = preg_replace('/##(.+?)##/m', '<p>$1</p>', $textTwo);
+  $linkInsert = '<a href="http://stonegateemail.co.uk/$dynamic3$/website" style="color: ' . $textColor . '">Click Here</a>';
+  $textTwo = str_replace('click here', $linkInsert, $textTwo);
   $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial;"';
   $textTwo = str_replace('<td class="text" align="left" valign="0">', '<td class="text" align="center" valign="0" ' . $styleInsert . '>', $textTwo);
   $textTwo = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $textTwo);
@@ -85,9 +92,10 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $output = preg_replace($search, $terms, $output);
 
   $append = "welcome_21_days_uk";
+  $path = "pre_made";
   $save = false;
 
-  sendToFile($output, $append, $brand, '.html', $save);
+  sendToFile($output, $path, $append, $brand, '.html', $save);
 
   print_r($output);
 }

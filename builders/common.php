@@ -3,7 +3,7 @@
 /*........................*/
 /*Send To output file*/
 /*........................*/
-function sendToFile($output, $append, $serverName, $fileType, $send){
+function sendToFile($output, $path, $append, $serverName, $fileType, $send){
   //$output     => string for output file data
   //$path       => folder path to output location
   //$append     => filename base
@@ -11,17 +11,17 @@ function sendToFile($output, $append, $serverName, $fileType, $send){
   //$fileType   => file extension
 
   if($send == true){
-    $dirName = '../' . 'pre_made';
+    $dirName = '../' . $path;
     if(!is_dir($dirName)){
       mkdir($dirName, 0755);
     }
 
-    $dirName = '../' . 'pre_made' . '/' . $serverName;
+    $dirName = '../' . $path . '/' . $serverName;
     if(!is_dir($dirName)){
       mkdir($dirName, 0755);
     }
 
-    file_put_contents(('../'. 'pre_made' . '/' . $serverName . '/' . $append . $fileType), $output);
+    file_put_contents(('../'. $path . '/' . $serverName . '/' . $append . $fileType), $output);
   }
 }
 
@@ -85,9 +85,9 @@ function textColor($color){
 /*........................*/
 /*Retrieve URL for promo image*/
 /*........................*/
-function getURL($serverName){
+function getURL($serverName, $image){
   $urlStart = 'http://img2.email2inbox.co.uk/2017/stonegate/01/promo/';
-  $urlEnd = '/prosecco.png';
+  $urlEnd = '/' . $image;
 
   if(($serverName === 'finnegans_wake') || ($serverName === 'rosies')){
     return $urlStart . 'colors' . $urlEnd;
@@ -161,6 +161,16 @@ function termsBuilder($terms){
 
   $block = $blockStart . $terms .$blockEnd;
   return $block;
+}
+
+/*........................*/
+/*Get Hero Image for template*/
+/*........................*/
+function getHeroImageURL($brand){
+  $urlStart = 'http://img2.email2inbox.co.uk/2016/stonegate/templates/';
+  $urlEnd = '/hero.jpg';
+
+  return $urlStart . $brand . $urlEnd;
 }
 
  ?>

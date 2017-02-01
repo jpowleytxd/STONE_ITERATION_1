@@ -40,7 +40,7 @@ for($i = 1; $i <= 2; $i++){
 
     //Prep Images
     $image = file_get_contents('../sites/_defaults/image.html');
-    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg', $image);
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
 
     //Prep Spacer
     $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');
@@ -88,8 +88,9 @@ for($i = 1; $i <= 2; $i++){
     $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
 
     $save = false;
+    $path = "pre_made";
 
-    sendToFile($output, $append, $brand, '.html', $save);
+    sendToFile($output, $path, $append, $brand, '.html', $save);
 
     print_r($output);
   }

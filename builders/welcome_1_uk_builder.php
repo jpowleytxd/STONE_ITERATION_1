@@ -35,10 +35,10 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Images
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg', $image);
+  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
 
   //Prep Promo Image
-  $url = getURL($brand);
+  $url = getURL($brand, 'prosecco.png');
   $promo = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', $url, $promo);
   $promo = marginBuilder($promo);
 
@@ -83,7 +83,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $styleInsert = 'style="font-size: 11px; color: ' . $textColor . '"';
   $terms = preg_replace('/<td valign="top">/', '<td valign="top" align="center" ' . $styleInsert . '>', $terms);
 
-  $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $emptySpacer . $promo .  $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo .  $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
 
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
@@ -92,9 +92,10 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $output = preg_replace($search, $terms, $output);
 
   $append = "welcome_1_day_uk";
+  $path = "pre_made";
   $save = false;
 
-  sendToFile($output, $append, $brand, '.html', $save);
+  sendToFile($output, $path, $append, $brand, '.html', $save);
 
   print_r($output);
 }

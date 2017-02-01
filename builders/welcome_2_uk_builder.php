@@ -35,10 +35,10 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Images
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg', $image);
+  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
 
   //Prep Promo Image
-  $url = getURL($brand);
+  $url = getURL($brand, 'prosecco.png');
   $promo = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', $url, $promo);
   $promo = marginBuilder($promo);
 
@@ -55,6 +55,8 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $welcomeRows[5] = str_replace('"', '', $welcomeRows[5]);
   $textOne = str_replace('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales vehicula tellus pellentesque malesuada. Integer malesuada magna felis, id rutrum leo volutpat eget. Morbi finibus et diam in placerat. Suspendisse magna enim, pharetra at erat vel, consequat facilisis mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla est velit, lobortis eu tincidunt sit amet, semper et lorem.', $welcomeRows[5], $textOne);
   $textOne = preg_replace('/##(.+?)##/m', '<p>$1</p>', $textOne);
+  $linkInsert = '<a href="http://stonegateemail.co.uk/$dynamic3$/party" style="color: ' . $textColor . '; font-weight: bold;">Find out how we can make it your best ever.</a>';
+  $textOne = str_replace('Find out how we can make it your best ever.', $linkInsert, $textOne);
   $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial;"';
   $textOne = str_replace('<td class="text" align="left" valign="0">', '<td class="text" align="center" valign="0" ' . $styleInsert . '>', $textOne);
   $textOne = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $textOne);
@@ -77,9 +79,10 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
 
   $append = "welcome_7_days_uk";
+  $path = "pre_made";
   $save = false;
 
-  sendToFile($output, $append, $brand, '.html', $save);
+  sendToFile($output, $path, $append, $brand, '.html', $save);
 
   print_r($output);
 }

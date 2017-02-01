@@ -135,7 +135,7 @@ data-variants=""
 	<tbody>
 		<tr>
 			<td style="text-align:center" valign="0">
-				<img src="http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg" border="0" alt="Insert alt text here" style="outline:none;display:block;" class="img-max" width="100%">
+				<img src="http://img2.email2inbox.co.uk/2016/stonegate/templates/colors/hero.jpg" border="0" alt="Insert alt text here" style="outline:none;display:block;" class="img-max" width="100%">
 			</td>
 		</tr>
 	</tbody>
@@ -160,7 +160,7 @@ Color: #df001c
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="block blockHeading wrapper" data-id="blockHeading">
     <tr>
         <td align="center" valign="0">
-        	<h1 style="margin: 0; padding: 0; font-family: Arial, sans-serif, 'lato'; color: #d4af37; font-size: 24px;" class="heading"><span color="#df001c">Free Glass Of Fizz  !
+        	<h1 style="margin: 0; padding: 0; font-family: Arial, sans-serif, 'lato'; color: #d4af37; font-size: 24px;" class="heading"><span color="#df001c">Free Glass Of Fizz!
 </span></h1>
         </td>
     </tr>
@@ -180,7 +180,7 @@ Color: #df001c
 	<tr><td align="center" width="30"></td>
 		<td class="text" align="center" valign="0" style="color: #fff;font-weight: bold; font-family: arial;"><p><p>Hi $forename$,</p>
 <p>As promised  - here's a little something to get the party started.</p>
-<p>Come and see us in the next 14 days and claim your Free Glass Of Fizz!</p>
+<p>Come and see us in the next 14 days and claim your</p><p>Free Glass Of Fizz!</p>
 </p></td>
 	<td align="center" width="30"></td></tr>
 </table>
@@ -188,7 +188,7 @@ Color: #df001c
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="block blockSpacer contentBlock" data-id="blockSpacer">
     <tr>
-        <td align="center" height="20" valign="middle"></td>
+        <td align="center" height="40" valign="middle"></td>
     </tr>
 </table>
 <table border="0" cellpadding="0" cellspacing="0" width="600" class="block block1Column structureBlock wrapper" data-id="block1Column" style="width:600px;width:600px;width:600px;">
@@ -247,7 +247,7 @@ Text Right: #ffffff
 								<td height="20" valign="0"></td>
 							</tr>
 							<tr>
-								<td align="center" valign="top" style="color: #ffffff; font-weight: 700;">PROMO CODE:</td>
+								<td align="center" valign="top" style="color: #ffffff; font-weight: 700; font-family: Arial, sans-serif, 'lato';">PROMO CODE:</td>
 							</tr>
 							<tr>
 								<td height="10" valign="0"></td>
@@ -266,21 +266,27 @@ Text Right: #ffffff
 							</tr>
 							<tr>
 								<td align="center" valign="top">
+									<!--valid_from_start-->
 									<table width="100%" border="0" cellspacing="0" cellpadding="0" class="block blockHeading wrapper" data-id="blockHeading">
 										<tr>
-											<td align="center" valign="center" style="color: #ffffff; font-weight: 700;" class="heading"><span>Valid from: $dynamic4$</span></td>
+											<td align="center" valign="center" style="color: #ffffff; font-family: Arial, sans-serif, 'lato';" class="heading"><span style="font-weight: 700;">Valid from: </span><span>$dynamic4$</span></td>
 										</tr>
 									</table>
+									<!--valid_from_end-->
+									<!--valid_to_start-->
 									<table width="100%" border="0" cellspacing="0" cellpadding="0" class="block blockHeading wrapper" data-id="blockHeading">
 										<tr>
-											<td align="center" valign="center" style="color: #ffffff; font-weight: 700;" class="heading"><span>Valid until: $dynamic5$</span></td>
+											<td align="center" valign="center" style="color: #ffffff; font-family: Arial, sans-serif, 'lato';" class="heading"><span style="font-weight: 700;">Valid until: </span><span>$dynamic5$</span></td>
 										</tr>
 									</table>
+									<!--valid_to_end-->
+									<!--customer_start-->
 									<table width="100%" border="0" cellspacing="0" cellpadding="0" class="block blockHeading wrapper" data-id="blockHeading">
 										<tr>
-											<td align="center" valign="center" style="color: #ffffff; font-weight: 700;" class="heading"><span>Customer: $forename$</span></td>
+											<td align="center" valign="center" style="color: #ffffff; font-family: Arial, sans-serif, 'lato';" class="heading"><span style="font-weight: 700;">Customer: </span><span>$forename$</span></td>
 										</tr>
 									</table>
+									<!--customer_end-->
 								</td>
 							</tr>
 							<tr>
@@ -333,9 +339,6 @@ Text Right: #ffffff
 	</tr>
 </table>
 <!-- VoucherEnd -->
-
-
-
 </td><td align="center" width="30"></td>
   </tr>
   </table>
