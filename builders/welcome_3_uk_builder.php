@@ -93,7 +93,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   $append = "welcome_21_days_uk";
   $path = "pre_made";
-  $save = false;
+  $save = true;
 
   sendToFile($output, $path, $append, $brand, '.html', $save);
 

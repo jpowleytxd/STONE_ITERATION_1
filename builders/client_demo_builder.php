@@ -280,7 +280,7 @@ foreach(glob("../pre_made/*/*.html") as $filename){
 
   $append = $templateType;
   $path = "client.demo";
-  $save = true;
+  $save = false;
 
   sendToFile($output, $path, $append, $brand, '.html', $save);
 

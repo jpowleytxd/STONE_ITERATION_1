@@ -55,6 +55,7 @@ for($i = 1; $i <= 3; $i++){
 
     //Prep Text One
     $welcomeRows[5] = str_replace('"', '', $welcomeRows[5]);
+    $welcomeRows[5] = str_replace("'", '&apos;', $welcomeRows[5]);
     $textOne = str_replace('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales vehicula tellus pellentesque malesuada. Integer malesuada magna felis, id rutrum leo volutpat eget. Morbi finibus et diam in placerat. Suspendisse magna enim, pharetra at erat vel, consequat facilisis mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla est velit, lobortis eu tincidunt sit amet, semper et lorem.', $welcomeRows[5], $textOne);
     $textOne = preg_replace('/##(.+?)##/m', '<p>$1</p>', $textOne);
     $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial;"';
