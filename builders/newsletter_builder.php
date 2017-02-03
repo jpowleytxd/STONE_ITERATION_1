@@ -9,12 +9,12 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   //One column setup
   $oneCol = file_get_contents('../sites/' . $brand . '\/bespoke_blocks\/' . $brand . '_1_col.html');
   $oneCol = preg_replace('/href="http:\/\/www\.abcd\.com\/"/', 'href="#"', $oneCol);
-  $oneCol = preg_replace('/http:\/\/img2\.email2inbox\.co\.uk\/editor\/fullwidth\.jpg/', 'http://placehold.it/640x360', $oneCol);
+  $oneCol = preg_replace('/http:\/\/img2\.email2inbox\.co\.uk\/editor\/fullwidth\.jpg/', 'http://placehold.it/580x326', $oneCol);
 
   //Two column setup
   $twoCol = file_get_contents('../sites/' . $brand . '\/bespoke_blocks\/' . $brand . '_2_col.html');
   $twoCol = preg_replace('/href="http:\/\/www\.abcd\.com\/"/', 'href="#"', $twoCol);
-  $twoCol = preg_replace('/http:\/\/img2\.email2inbox\.co\.uk\/editor\/fullwidth\.jpg/', 'http://placehold.it/320x180', $twoCol);
+  $twoCol = preg_replace('/http:\/\/img2\.email2inbox\.co\.uk\/editor\/fullwidth\.jpg/', 'http://placehold.it/280x158', $twoCol);
 
   //Content Insertion
   $search = '/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/';
