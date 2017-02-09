@@ -2,6 +2,20 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+//Sort through venues whether they have the banner image or not
+function bannerImage($brand){
+  $inclusions =  array('edwards', 'flares', 'luna', 'missoula', 'popworld', 'rosies','via');
+  $alternates = array('beduin', 'colors');
+
+  if(in_array($brand, $inclusions)){
+    return 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg';
+  } else if(in_array($brand, $alternates)){
+    return getHeroImageURL($brand);
+  } else{
+    return null;
+  }
+}
+
 
 foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $template = file_get_contents($filename);
@@ -36,7 +50,12 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Image
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg', $image);
+  $imageInclude = bannerImage($brand);
+  if($imageInclude !== null){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', $imageInclude, $image);
+  } else{
+    $image = '';
+  }
 
   //Prep Spacers
   $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');
@@ -56,7 +75,6 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $link = '<a href="http://stonegateemail.co.uk/$dynamic3$/website" style="color: ' . $textColor . ';">Click here</a>';
   $textOne = str_replace('Click here', $link, $textOne);
 
-  //Build email html
   $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer;
 
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";

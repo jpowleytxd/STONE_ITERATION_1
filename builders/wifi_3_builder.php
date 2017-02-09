@@ -35,7 +35,11 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Image
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  if($brand === 'charles_street'){
+    $image = '';
+  } else{
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  }
 
   //Prep Spacers
   $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');

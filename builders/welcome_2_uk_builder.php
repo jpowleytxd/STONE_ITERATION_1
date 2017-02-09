@@ -35,7 +35,11 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Images
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  if(($brand === 'admiral_duncan') || ($brand === 'via')){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  } else{
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getURL($brand, 'prosecco.png'), $image);
+  }
 
   //Prep Promo Image
   $url = getURL($brand, 'prosecco.png');
@@ -71,7 +75,12 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $textTwo = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $textTwo);
   $textTwo = str_replace('</tr>', '<td align="center" width="30"></td></tr>', $textTwo);
 
-  $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo .  $emptySpacer . $lineSpacer . $emptySpacer . $textTwo . $largeSpacer;
+  $insert = null;
+  if(($brand === 'admiral_duncan') || ($brand === 'via')){
+    $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo .  $emptySpacer . $lineSpacer . $emptySpacer . $textTwo . $largeSpacer;
+  } else{
+    $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $lineSpacer . $emptySpacer . $textTwo . $largeSpacer;
+  }
 
   //Insert content into template
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";

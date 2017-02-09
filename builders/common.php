@@ -146,10 +146,10 @@ function lineSpacerBuild($parentFolder){
 /*T&C's builder*/
 /*........................*/
 function termsBuilder($terms){
-  $blockStart = '<table border="0" cellpadding="0" cellspacing="0" width="600" class="block block1Column structureBlock wrapper" data-id="block1Column" style="width:600px;width:600px;width:600px;">
+  $blockStart = '<table border="0" cellpadding="0" cellspacing="0" width="600" class="block block1Column structureBlock wrapper" data-id="block1Column" style="width:600px;">
       <tr>
           <td align="center" valign="0">
-              <table border="0" cellpadding="0" cellspacing="0" width="600" class="responsive-table blockArea block" data-id="blockArea" style="width:600px;width:600px;width:600px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="600" class="responsive-table blockArea block" data-id="blockArea" style="width:600px;">
                   <tr><td align="center" width="30"></td>
                       <td valign="top">';
   $blockEnd = '</td><td align="center" width="30"></td>

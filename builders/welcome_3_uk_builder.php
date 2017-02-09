@@ -2,6 +2,16 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+function bannerImage($brand){
+  $exclusions =  array('charles_street', 'halfway_to_heaven');
+
+  if(in_array($brand, $exclusions)){
+    return null;
+  } else{
+    return getHeroImageURL($brand);
+  }
+}
+
 //Welcome 2 UK
 foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $template = file_get_contents($filename);
@@ -34,7 +44,12 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   //Prep Images
   $image = file_get_contents('../sites/_defaults/image.html');
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  $imageInclude = bannerImage($brand);#
+  if($imageInclude !== null){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', $imageInclude, $image);
+  } else{
+    $image = '';
+  }
 
   //Prep Spacer
   $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');
@@ -85,6 +100,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne .  $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
 
+
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
 
@@ -93,7 +109,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   $append = "welcome_21_days_uk";
   $path = "pre_made";
-  $save = true;
+  $save = false;
 
   sendToFile($output, $path, $append, $brand, '.html', $save);
 

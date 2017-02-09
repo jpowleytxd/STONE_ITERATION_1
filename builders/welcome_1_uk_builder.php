@@ -2,6 +2,16 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+function bannerImage($brand){
+  $inclusions =  array('admiral_duncan', 'duke_of_wellington', 'edwards', 'queens_court', 'rosies', 'via');
+
+  if(in_array($brand, $inclusions)){
+    return 'hero';
+  } else{
+    return 'promo';
+  }
+}
+
 //Welcome Uk 1
 foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $template = file_get_contents($filename);
@@ -35,7 +45,12 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Images
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  $imageInclude = bannerImage($brand);
+  if($imageInclude === 'hero'){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  } else if($imageInclude ==="promo"){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getURL($brand, 'prosecco.png'), $image);
+  }
 
   //Prep Promo Image
   $url = getURL($brand, 'prosecco.png');
@@ -75,6 +90,8 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $textTwo = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $textTwo);
   $textTwo = str_replace('</tr>', '<td align="center" width="30"></td></tr>', $textTwo);
 
+  //Get Background Color
+  preg_match('/"emailBackground": "(.*)"/', $template, $matches, PREG_OFFSET_CAPTURE);
   $color = $matches[1][0];
   $textColor = textColor($color);
 
@@ -83,7 +100,13 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $styleInsert = 'style="font-size: 11px; color: ' . $textColor . '"';
   $terms = preg_replace('/<td valign="top">/', '<td valign="top" align="center" ' . $styleInsert . '>', $terms);
 
-  $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo .  $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  $insert = null;
+  if($imageInclude === 'hero'){
+    $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo .  $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  } else if($imageInclude === 'promo'){
+    $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne .  $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  }
+
 
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);

@@ -2,6 +2,16 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+function bannerImage($brand){
+  $exclusions =  array('charles_street', 'halfway_to_heaven', 'kings_arms', 'marys', 'missoula', 'pit_and_pendulum', 'popworld', 'reflex', 'retro_bar', 'rupert_street', 'slains_castle', 'slug', 'two_brewers');
+
+  if(in_array($brand, $exclusions)){
+    return null;
+  } else{
+    return 'hero';
+  }
+}
+
 //Birthday 2
 foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $template = file_get_contents($filename);
@@ -34,7 +44,12 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   //Prep Image
   $image = file_get_contents('../sites/_defaults/image.html');
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  $imageInclude = bannerImage($brand);
+  if($imageInclude === null){
+    $image = '';
+  } else{
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  }
 
   //Prep Spacer
   $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');

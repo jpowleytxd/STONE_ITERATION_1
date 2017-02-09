@@ -2,6 +2,16 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+function bannerImage($brand){
+  $inclusions =  array('admiral_duncan', 'beduin', 'duke_of_wellington', 'via');
+
+  if(in_array($brand, $inclusions)){
+    return 'hero';
+  } else{
+    return 'promo';
+  }
+}
+
 //Wifi 1
 foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $template = file_get_contents($filename);
@@ -35,7 +45,13 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   //Prep Image
   $image = file_get_contents('../sites/_defaults/image.html');
   $promo = $image;
-  $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  $imageInclude = bannerImage($brand);
+  if($imageInclude === 'hero'){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getHeroImageURL($brand), $image);
+  } else if($imageInclude === 'promo'){
+    $image = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', getURL($brand, 'sourz.png'), $image);
+  }
+
 
   //Prep Spacers
   $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');
@@ -86,7 +102,13 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $terms = preg_replace('/<td valign="top">/', '<td valign="top" align="center" ' . $styleInsert . '>', $terms);
 
   //Insert content into template
-  $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo . $emptySpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  $insert = null;
+  if($imageInclude === 'hero'){
+    $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $promo . $emptySpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  } else if($imageInclude === 'promo'){
+    $insert = $image . $largeSpacer . $heading . $emptySpacer . $textOne . $largeSpacer . $voucher . $largeSpacer . $textTwo . $largeSpacer;
+  }
+
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
 
