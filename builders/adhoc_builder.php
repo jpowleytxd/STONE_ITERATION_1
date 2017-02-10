@@ -4,7 +4,7 @@ include 'common.php';
 
 //Retrieve generic blocks
 $imageBlock = file_get_contents("../sites/_defaults/image.html");
-$imageBlock = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://placehold.it/640x360', $imageBlock);
+$imageBlock = str_replace('http://img2.email2inbox.co.uk/editor/fullwidth.jpg', 'http://placehold.it/600x338', $imageBlock);
 $emptySpacer = file_get_contents('../sites/_defaults/basic_spacer.html');
 
 foreach(glob('../sites/*/templates/*_branded.html') as $filename){
@@ -29,7 +29,7 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
 
   //Prep All Text
   $basicText = file_get_contents('../sites/_defaults/text.html');
-  $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial;"';
+  $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial; line-height: 130%;"';
   $basicText = str_replace('<td class="text" align="left" valign="0">', '<td class="text" align="center" valign="0" ' . $styleInsert . '>', $basicText);
   $basicText = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $basicText);
   $basicText = str_replace('</tr>', '<td align="center" width="30"></td></tr>', $basicText);
