@@ -2,6 +2,9 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+$returnString = null;
+
 //Sort through venues whether they have the banner image or not
 function bannerImage($brand){
   $inclusions =  array('edwards', 'flares', 'luna', 'missoula', 'popworld', 'rosies','via');
@@ -83,11 +86,13 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   $append = "password_reset";
   $path = "pre_made";
-  $save = false;
+  $save = $saveToFile;
 
   sendToFile($output, $path, $append, $brand, '.html', $save);
 
-  print_r($output);
+  // print_r($output);
+  $returnString .= $output;
 }
+echo $returnString;
 
  ?>

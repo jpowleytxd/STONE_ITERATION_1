@@ -2,6 +2,9 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+$returnString = null;
+
 for($i = 1; $i <= 2; $i++){
   foreach(glob("../sites/*/templates/*_branded.html") as $filename){
     $template = file_get_contents($filename);
@@ -89,12 +92,15 @@ for($i = 1; $i <= 2; $i++){
     $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
     $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
 
-    $save = false;
+    $save = $saveToFile;
     $path = "pre_made";
 
     sendToFile($output, $path, $append, $brand, '.html', $save);
 
-    print_r($output);
+    //print_r($output);
+    $returnString .= $output;
   }
 }
+
+echo $returnString;
  ?>

@@ -2,6 +2,9 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+$returnString = null;
+
 function bannerImage($brand){
   $exclusions =  array('charles_street', 'halfway_to_heaven', 'kings_arms', 'marys', 'missoula', 'pit_and_pendulum', 'popworld', 'reflex', 'retro_bar', 'rupert_street', 'slains_castle', 'slug', 'two_brewers');
 
@@ -114,11 +117,13 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
 
   $append = "birthday_6_weeks";
   $path = "pre_made";
-  $save = false;
+  $save = $saveToFile;
 
   sendToFile($output, $path, $append, $brand, '.html', $save);
 
-  print_r($output);
+  // print_r($output);
+  $returnString .= $output;
 }
+echo $returnString;
 
  ?>

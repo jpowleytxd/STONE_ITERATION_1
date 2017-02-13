@@ -2,6 +2,8 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+
 $sql = null;
 foreach (glob("../pre_made/*/adhoc.html") as $filename) {
   $temp = file_get_contents($filename);
@@ -57,10 +59,11 @@ foreach (glob("../pre_made/*/adhoc.html") as $filename) {
 
 $append = "adhoc_insert_head";
 $path = "inserts";
-$save = false;
+$save = $saveToFile;
 
 sendToFile($sql,$path, $append, $brand, '.sql', $save);
 
-print_r($sql);
+// print_r($sql);
 
+echo $sql;
  ?>

@@ -2,6 +2,9 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+$returnString = null;
+
 for($i = 1; $i <= 3; $i++){
   foreach(glob("../sites/*/templates/*_branded.html") as $filename){
     $template = file_get_contents($filename);
@@ -113,12 +116,14 @@ for($i = 1; $i <= 3; $i++){
     }
     $path = "pre_made";
 
-    $save = false;
+    $save = $saveToFile;
 
     sendToFile($output, $path, $append, $brand, '.html', $save);
 
-    print_r($output);
+    // print_r($output);
+    $returnString .= $output;
   }
 }
+echo $returnString;
 
  ?>

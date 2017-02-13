@@ -320,6 +320,9 @@ function htmlBuilder($content, $brand){
   return $output;
 }
 
+$saveToFile = $_POST['saveStatus'];
+$returnString = null;
+
 foreach(glob("../pre_made/*/*.html") as $filename){
   $template = file_get_contents($filename);
 
@@ -337,11 +340,13 @@ foreach(glob("../pre_made/*/*.html") as $filename){
 
   $append = $templateType;
   $path = "client.demo";
-  $save = false;
+  $save = $saveToFile;
 
   sendToFile($output, $path, $append, $brand, '.html', $save);
 
-  print_r($output);
+  // print_r($output);
+  $returnString .= $output;
 }
 
+echo $returnString;
  ?>

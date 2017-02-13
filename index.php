@@ -17,75 +17,84 @@
 <body>
 
 <div class="navigation-container">
-  <div class="navigation-block">
-    <div class="navigation-title">Build</div>
-    <div class="navigation-items">
-      <?php
-        foreach(glob('builders/*.php') as $filename){
-          $type = preg_replace('/.*?\/(.*?).php/', '$1', $filename);
-          $lowerType = $type;
-          $type =  str_replace('_', ' ', $type);
-          if(strpos($filename, 'common') === false){
-            print_r('<div class="navigation-item" data-link="builder" data-type="' . $lowerType . '">');
-            print_r(ucwords($type));
-            print_r('</div>');
-          }
-        }
-       ?>
-     </div>
+  <div class="navigation-left">
+    <div class="icon-container">
+      <div class="nav-icon" data-process="build">B</div>
+      <div class="nav-icon" data-process="insert">I</div>
+      <div class="nav-icon" data-process="update">U</div>
+      <div class="nav-icon" data-process="view">V</div>
+    </div>
   </div>
-  <div class="navigation-block">
-    <div class="navigation-title">Insert</div>
-    <div class="navigation-items">
+  <div class="navigation-right">
+    <div class="nav-group" id="build-group">
       <?php
-        foreach(glob('inserters/*.php') as $filename){
-          $type = preg_replace('/.*?\/(.*?).php/', '$1', $filename);
-          $lowerType = $type;
-          $type =  str_replace('_', ' ', $type);
-          if(strpos($filename, 'common') === false){
-            print_r('<div class="navigation-item" data-link="inserter" data-type="' . $lowerType . '">');
-            print_r(ucwords($type));
-            print_r('</div>');
-          }
+        foreach(glob('builders/*_builder.php') as $filename){
+          $name = preg_replace('/.*\/(.*)_builder.php/', '$1', $filename);
+          $display = str_replace('_', ' ', $name);
+          $display = ucwords($display);
+          $display = str_replace('Uk', 'UK', $display);
+          ?>
+          <div class="nav-item" id="<?php print_r($name . '_builder'); ?>" data-process-"build">
+            <?php print_r($display . ' Builder'); ?>
+            <input type="checkbox" name="<?php print_r($name . '_builder'); ?>">
+          </div>
+          <?php
         }
        ?>
     </div>
-  </div>
-  <div class="navigation-block">
-    <div class="navigation-title">Update</div>
-    <div class="navigation-items">
+    <div class="nav-group" id="insert-group">
       <?php
-        foreach(glob('updaters/*.php') as $filename){
-          $type = preg_replace('/.*?\/(.*?).php/', '$1', $filename);
-          $lowerType = $type;
-          $type =  str_replace('_', ' ', $type);
-          if(strpos($filename, 'common') === false){
-            print_r('<div class="navigation-item" data-link="updater" data-type="' . $lowerType . '">');
-            print_r(ucwords($type));
-            print_r('</div>');
-          }
+        foreach(glob('inserters/*_inserter.php') as $filename){
+          $name = preg_replace('/.*\/(.*)_inserter.php/', '$1', $filename);
+          $display = str_replace('_', ' ', $name);
+          $display = ucwords($display);
+          $display = str_replace('Uk', 'UK', $display);
+          ?>
+          <div class="nav-item" id="<?php print_r($name . '_inserter'); ?>" data-process="insert">
+            <?php print_r($display . ' Inserter'); ?>
+            <input type="checkbox" name="<?php print_r($name . '_inserter'); ?>">
+          </div>
+          <?php
         }
        ?>
     </div>
-  </div>
-  <div class="navigation-block">
-    <div class="navigation-title">View</div>
-    <div class="navigation-items">
+    <div class="nav-group" id="update-group">
       <?php
-        foreach(glob('viewers/*.php') as $filename){
-          $type = preg_replace('/.*?\/(.*?).php/', '$1', $filename);
-          $lowerType = $type;
-          $type =  str_replace('_', ' ', $type);
-          if(strpos($filename, 'common') === false){
-            print_r('<div class="navigation-item" data-link="viewer" data-type="' . $lowerType . '">');
-            print_r(ucwords($type));
-            print_r('</div>');
-          }
+        foreach(glob('updaters/*_updater.php') as $filename){
+          $name = preg_replace('/.*\/(.*)_updater.php/', '$1', $filename);
+          $display = str_replace('_', ' ', $name);
+          $display = ucwords($display);
+          $display = str_replace('Uk', 'UK', $display);
+          ?>
+          <div class="nav-item" id="<?php print_r($name . '_updater'); ?>" data-process="update">
+            <?php print_r($display . ' Updater'); ?>
+            <input type="checkbox" name="<?php print_r($name . '_updater'); ?>">
+          </div>
+          <?php
+        }
+       ?>
+    </div>
+    <div class="nav-group" id="view-group">
+      <?php
+        foreach(glob('builders/*_viewer.php') as $filename){
+          $name = preg_replace('/.*\/(.*)_viewer.php/', '$1', $filename);
+          $display = str_replace('_', ' ', $name);
+          $display = ucwords($display);
+          $display = str_replace('Uk', 'UK', $display);
+          ?>
+          <div class="nav-item" id="<?php print_r($name . '_viewer'); ?>" data-process="view">
+            <?php print_r($display . ' Viewer'); ?>
+          </div>
+          <?php
         }
        ?>
     </div>
   </div>
 </div>
+<div class="view-container">
+
+</div>
+
 </body>
 
 </html>
