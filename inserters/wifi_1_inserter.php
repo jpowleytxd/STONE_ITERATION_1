@@ -2,8 +2,10 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+
 $sql = null;
-foreach (glob("../client.demo/*/wifi_1_day.html") as $filename) {
+foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   $temp = file_get_contents($filename);#
 
   //Get brand and type names
@@ -76,10 +78,12 @@ foreach (glob("../client.demo/*/wifi_1_day.html") as $filename) {
 
 $append = "wifi_1_insert";
 $path = "inserts";
-$save = false;
+$save = $saveToFile;
 
-sendToFile($sql,$path, $append, $brand, '.html', $save);
+sendToFile($sql,$path, $append, $brand, '.sql', $save);
 
-print_r($sql);
+// print_r($sql);
+
+echo $sql;
 
  ?>

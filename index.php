@@ -29,18 +29,22 @@
     <div class="nav-group" id="build-group">
       <?php
         foreach(glob('builders/*_builder.php') as $filename){
-          $name = preg_replace('/.*\/(.*)_builder.php/', '$1', $filename);
-          $display = str_replace('_', ' ', $name);
-          $display = ucwords($display);
-          $display = str_replace('Uk', 'UK', $display);
-          ?>
-          <div class="nav-item" id="<?php print_r($name . '_builder'); ?>" data-process-"build">
-            <?php print_r($display . ' Builder'); ?>
-            <input type="checkbox" name="<?php print_r($name . '_builder'); ?>">
-          </div>
-          <?php
+          if(strpos($filename, 'all_template_builder') === false){
+            $name = preg_replace('/.*\/(.*)_builder.php/', '$1', $filename);
+            $display = str_replace('_', ' ', $name);
+            $display = ucwords($display);
+            $display = str_replace('Uk', 'UK', $display);
+            ?>
+            <div class="nav-item" id="<?php print_r($name . '_builder'); ?>" data-process-"build">
+              <?php print_r($display . ' Builder'); ?>
+            </div>
+            <?php
+          }
         }
        ?>
+       <div class="nav-item" id="all_template_builder" data-process="build">
+         All Template Builder
+       </div>
     </div>
     <div class="nav-group" id="insert-group">
       <?php
@@ -52,7 +56,6 @@
           ?>
           <div class="nav-item" id="<?php print_r($name . '_inserter'); ?>" data-process="insert">
             <?php print_r($display . ' Inserter'); ?>
-            <input type="checkbox" name="<?php print_r($name . '_inserter'); ?>">
           </div>
           <?php
         }
@@ -68,7 +71,6 @@
           ?>
           <div class="nav-item" id="<?php print_r($name . '_updater'); ?>" data-process="update">
             <?php print_r($display . ' Updater'); ?>
-            <input type="checkbox" name="<?php print_r($name . '_updater'); ?>">
           </div>
           <?php
         }

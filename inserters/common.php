@@ -85,7 +85,7 @@ function removeWhiteSpace($html){
   $search = array(
         '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
         '/[^\S ]+\</s',  // strip whitespaces before tags, except space
-        '[\r\n]',        // replace line breaks with placeholder
+        '/[\r\n]/',        // replace line breaks with placeholder
         '/(\s)+/s'       // shorten multiple whitespace sequences
     );
 

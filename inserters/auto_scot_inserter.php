@@ -2,8 +2,10 @@
 ini_set('max_execution_time', 3000);
 include 'common.php';
 
+$saveToFile = $_POST['saveStatus'];
+
 $sql = null;
-foreach (glob("../client.demo/*/auto_welcome_scot.html") as $filename) {
+foreach (glob("../pre_made/*/auto_welcome_scot.html") as $filename) {
   $temp = file_get_contents($filename);
 
   //Get brand and type names
@@ -76,9 +78,11 @@ foreach (glob("../client.demo/*/auto_welcome_scot.html") as $filename) {
 
 $append = "auto_welcome_scot_insert";
 $path = "inserts";
-$save = false;
+$save = $saveToFile;
 
-sendToFile($sql,$path, $append, $brand, '.html', $save);
+sendToFile($sql,$path, $append, $brand, '.sql', $save);
 
-print_r($sql);
+// print_r($sql);
+
+echo $sql;
  ?>

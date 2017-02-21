@@ -29,13 +29,13 @@ $(document).ready(function(){
     }
 
     if(name.indexOf("builder") >= 0){
-      processURL = "builders/" + processURL;
+      processURL = "../builders/" + processURL;
     } else if(name.indexOf("updater") >= 0){
-      processURL = "updaters/" + processURL;
+      processURL = "../updaters/" + processURL;
     } else if(name.indexOf("inserter") >= 0){
-      processURL = "inserters/" + processURL;
+      processURL = "../inserters/" + processURL;
     } else if(name.indexOf("viewer") >= 0){
-      processURL = "viewers/" + processURL;
+      processURL = "../viewers/" + processURL;
     }
 
     //var dataToSend = saveToFile.serialize();
@@ -43,7 +43,7 @@ $(document).ready(function(){
     $.ajax({
       method : "POST",
       url : processURL,
-      data : {saveStatus: saveToFile},
+      data : {saveStatus: 'true'},
       success: function(response){
         $('.view-container').append(response);
       }
