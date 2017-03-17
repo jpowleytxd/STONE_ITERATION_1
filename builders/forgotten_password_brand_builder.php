@@ -84,7 +84,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
 
-  $append = "password_reset";
+  $append = "password_reset_brand";
   $path = "pre_made";
   $save = $saveToFile;
 
