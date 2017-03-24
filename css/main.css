@@ -44,7 +44,6 @@ body{
   height: auto;
   display: block;
   position: relative;
-  margin-top: calc((100vh - (30vw * 0.15 * 4)) / 2);
 }
 
 .nav-icon{
@@ -84,10 +83,10 @@ body{
   user-select: none;
 }
 
-#build-group{display:none; margin-top: calc((100vh - (15vw * 0.15 * 17)) / 2);}
-#insert-group{display:none; margin-top: calc((100vh - (15vw * 0.15 * 22)) / 2);}
-#update-group{display:none; margin-top: calc((100vh - (15vw * 0.15 * 8)) / 2);}
-#view-group{display:none; margin-top: calc((100vh - (15vw * 0.15 * 16)) / 2);}
+#build-group{display:none;}
+#insert-group{display:none;}
+#update-group{display:none;}
+#view-group{display:none;}
 
 .selected{
   background: #3eb978;

@@ -14,7 +14,8 @@ foreach (glob("../pre_made/*/birthday_1_week.html") as $filename) {
   $type = $matches[2][0];
 
   //Remove comment tags
-  $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  $temp = preg_replace('/\{.*?\}/ms', '', $temp);
   $temp = str_replace('WHAT\'S', 'WHAT&apos;S', $temp);
   $temp = preg_replace('/\'/ms', '\\\'', $temp);
   $temp = removeWhiteSpace($temp);
@@ -60,7 +61,7 @@ foreach (glob("../pre_made/*/birthday_1_week.html") as $filename) {
   $preHeader = null;
   foreach($birthdayRows as $key => $row){
     $subject = $birthdayRows[3];
-    $preHeader = $birthdayRows[4];
+    $preHeader = str_replace("'", "\'", $birthdayRows[4]);
     $voucher = '0';
   }
 
