@@ -11,7 +11,8 @@ foreach (glob("../pre_made/*/belly_band.html") as $filename) {
 
   //Remove comment tags
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
-  $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  $temp = preg_replace('/\'/ms', '\\\'', $temp);
 
   //Base 64 encode template
   $temp = base64_encode($temp);

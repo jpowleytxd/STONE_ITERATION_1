@@ -83,17 +83,17 @@ function buildTemplateMappings(){
 /*........................*/
 function removeWhiteSpace($html){
   $search = array(
-        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
-        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
-        '[\r\n]',        // replace line breaks with placeholder
-        '/(\s)+/s'       // shorten multiple whitespace sequences
+        // '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+        // '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+        '/[\r\n]/'        // replace line breaks with placeholder
+        // '/(\s)+/s'       // shorten multiple whitespace sequences
     );
 
   $replace = array(
-      '>',
-      '<',
-      '[[LINEBREAKHERE]]',
-      '\\1'
+      // '>',
+      // '<',
+      '[[LINEBREAKHERE]]'
+      // '\\1'
   );
 
   $html = preg_replace($search, $replace, $html);

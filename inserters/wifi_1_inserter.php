@@ -16,7 +16,7 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   //Remove comment tags
   // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
-  $temp = str_replace('WHAT\'S', 'WHAT&apos;S', $temp);
+  // $temp = str_replace('WHAT\'S', 'WHAT&apos;S', $temp);
   $temp = preg_replace('/\'/ms', '\\\'', $temp);
   $temp = removeWhiteSpace($temp);
 

@@ -73,6 +73,7 @@ body{
   position: relative;
   float: left;
   background-color: rgb(75, 75, 75);
+  overflow-y: scroll;
 }
 
 .nav-group{
@@ -132,4 +133,13 @@ body{
   position: relative;
   float: left;
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(200, 200, 200, 0.5);
 }

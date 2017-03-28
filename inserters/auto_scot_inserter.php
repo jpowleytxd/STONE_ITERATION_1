@@ -14,8 +14,9 @@ foreach (glob("../pre_made/*/auto_welcome_scot.html") as $filename) {
   $type = $matches[2][0];
 
   //Remove comment tags
-  $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
-  $temp = str_replace('WHAT\'S', 'WHAT&apos;S', $temp);
+  $temp = preg_replace('/\{.*?\}/ms', '', $temp);
+  // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  // $temp = str_replace('WHAT\'S', "WHAT\\'S", $temp);
   $temp = preg_replace('/\'/ms', '\\\'', $temp);
   $temp = removeWhiteSpace($temp);
 
