@@ -7,8 +7,8 @@ $returnString = null;
 
 //Sort through venues whether they have the banner image or not
 function bannerImage($brand){
-  $inclusions =  array('edwards', 'flares', 'luna', 'missoula', 'popworld', 'rosies','via');
-  $alternates = array('beduin', 'colors');
+  $inclusions =  array('edwards', 'flares', 'luna', 'popworld', 'rosies','via');
+  $alternates = array('beduin', 'colors', 'missoula');
 
   if(in_array($brand, $inclusions)){
     return 'http://img2.email2inbox.co.uk/2016/stonegate/templates/placeholder.jpg';
