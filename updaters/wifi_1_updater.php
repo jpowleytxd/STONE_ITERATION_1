@@ -31,20 +31,43 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   foreach($rows as $key => $row){
     $accountID = $row[2];
     $profileID = $row[3];
-    $brandID = $row[4];
+    $brandID = $row[8];
     $venueID = $row[5];
     $veID = $row[6];
     $accounts = $row[7];
+    // $template_id = $row[8];
+  }
+
+  //Get Email content
+  $type = "WIFI sign in 1 + 1 Day";
+  $email = 'WIFI sign in 1 + 1 Day';
+  $wifiRows = null;
+  $initialQuery = "SELECT * FROM `copy_iteration1_all` WHERE `email` = '" . $email . "'";
+  $rows = databaseQuery($initialQuery);
+  foreach($rows as $key => $row){
+    $wifiRows = $row;
+    break;
+  }
+  $subject = null;
+  $voucher = null;
+  $preHeader = null;
+  foreach($wifiRows as $key => $row){
+    $subject = $wifiRows[3];
+    $preHeader = str_replace("'", "\'", $wifiRows[4]);
+    $voucher = '0';
   }
 
   $voucher = 1;
+
+  $name = $upperCaseName . ' - T:' . date("Ymd") . ' - ' . $type;
+  $settings = buildTemplateSettings($name, $preHeader, $subject, $brandID, $profileID);
 
   //Naming variables
   $type = "WIFI sign in 1 + 1 Day";
   $name = $upperCaseName . ' - T:20170324 - ' . $type;
 
   //Build SQL statements
-  $sql .= "UPDATE `tbl_email_templates` SET `template_html` = '" . $temp . "', `template_has_voucher` = '" . $voucher . "'
+  $sql .= "UPDATE `tbl_email_templates` SET `template_html` = '" . $temp . "', `template_has_voucher` = '" . $voucher . "', `template_ve_settings` = '" . $settings . "'
           WHERE `template_account_id` = '1222' AND `template_title` = '" . $name . "';\n";
 }
 
