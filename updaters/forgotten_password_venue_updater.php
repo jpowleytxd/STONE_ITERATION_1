@@ -12,6 +12,10 @@ foreach (glob("../pre_made/*/password_reset_venue.html") as $filename) {
   //Remove comment tags
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
   // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueEnd -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedEnd -->/ms', '', $temp);
   $temp = preg_replace('/\'/ms', '\\\'', $temp);
   $temp = removeWhiteSpace($temp);
 
@@ -31,20 +35,42 @@ foreach (glob("../pre_made/*/password_reset_venue.html") as $filename) {
   foreach($rows as $key => $row){
     $accountID = $row[2];
     $profileID = $row[3];
-    $brandID = $row[4];
+    $brandID = $row[8];
     $venueID = $row[5];
     $veID = $row[6];
     $accounts = $row[7];
   }
 
+  //Get Email content
+  $type = "Forgotten Password";
+  $email = 'Forgotten Password';
+  $wifiRows = null;
+  $initialQuery = "SELECT * FROM `copy_iteration1_all` WHERE `email` = '" . $email . "'";
+  $rows = databaseQuery($initialQuery);
+  foreach($rows as $key => $row){
+    $wifiRows = $row;
+    break;
+  }
+  $subject = null;
+  $voucher = null;
+  $preHeader = null;
+  foreach($wifiRows as $key => $row){
+    $subject = $wifiRows[3];
+    $preHeader = str_replace("'", "\'", $wifiRows[4]);
+    $voucher = '0';
+  }
+
   $voucher = 0;
+
+  $name = $upperCaseName . ' - T:' . date("Ymd") . ' - ' . $type;
+  $settings = buildTemplateSettings($name, $preHeader, $subject, $brandID, $profileID);
 
   //Naming variables
   $type = "Forgotten Password";
   $name = $upperCaseName . ' - T:20170316 - ' . $type;
 
   //Build SQL statements
-  $sql .= "UPDATE `tbl_email_templates` SET `template_html` = '" . $temp . "', `template_has_voucher` = '" . $voucher . "'
+  $sql .= "UPDATE `tbl_email_templates` SET `template_html` = '" . $temp . "', `template_ve_settings` = '" . $settings . "'
           WHERE `template_account_id` = '1222' AND `template_title` = '" . $name . "';\n";
 }
 

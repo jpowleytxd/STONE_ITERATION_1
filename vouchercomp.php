@@ -83,14 +83,22 @@ return $output;
 
 $vouchers = null;
 
+$count = 0;
 foreach(glob('sites/*/bespoke_blocks/*_voucher.html') as $filename){
+  $count++;
   $block = file_get_contents($filename);
-  $voucherName = '<h1>' . $filename . '</h1>';
-  $vouchers .= $voucherName . $block;
+
+  // $code =
+
+  // $voucherName = '<h1>' . $filename . '</h1>';
+  $vouchers .= $block;
+
+
 }
 
-$page = htmlBuilder($vouchers);
+// $page = htmlBuilder($vouchers);
 
-echo $page;
+echo $vouchers;
+echo $count;
 
  ?>

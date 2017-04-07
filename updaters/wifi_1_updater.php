@@ -12,6 +12,10 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   //Remove comment tags
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
   // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueEnd -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedEnd -->/ms', '', $temp);
   $temp = preg_replace('/\'/ms', '\\\'', $temp);
   $temp = removeWhiteSpace($temp);
 
@@ -54,10 +58,8 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   foreach($wifiRows as $key => $row){
     $subject = $wifiRows[3];
     $preHeader = str_replace("'", "\'", $wifiRows[4]);
-    $voucher = '0';
+    $voucher = 1;
   }
-
-  $voucher = 1;
 
   $name = $upperCaseName . ' - T:' . date("Ymd") . ' - ' . $type;
   $settings = buildTemplateSettings($name, $preHeader, $subject, $brandID, $profileID);
@@ -67,7 +69,7 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   $name = $upperCaseName . ' - T:20170324 - ' . $type;
 
   //Build SQL statements
-  $sql .= "UPDATE `tbl_email_templates` SET `template_html` = '" . $temp . "', `template_has_voucher` = '" . $voucher . "', `template_ve_settings` = '" . $settings . "'
+  $sql .= "UPDATE `tbl_email_templates` SET `template_html` = '" . $temp . "', `template_ve_settings` = '" . $settings . "'
           WHERE `template_account_id` = '1222' AND `template_title` = '" . $name . "';\n";
 }
 
