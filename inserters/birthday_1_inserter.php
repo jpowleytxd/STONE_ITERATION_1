@@ -6,7 +6,7 @@ $saveToFile = $_POST['saveStatus'];
 
 $sql = null;
 foreach (glob("../pre_made/*/birthday_1_week.html") as $filename) {
-  $temp = file_get_contents($filename);#
+  $temp = file_get_contents($filename);
 
   //Get brand and type names
   preg_match_all('/.*?\/.*?\/(.*?)\/(.*?).html/', $filename, $matches);
