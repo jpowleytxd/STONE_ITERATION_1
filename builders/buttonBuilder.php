@@ -2,32 +2,31 @@
 
 include("common.php");
 
-// a table booking      -> /table
-// a party booking      -> /party
-// a pre-order          -> /
-// view menus           -> /website
+// a table booking      -> /table-booking
+// a party booking      -> /party-booking
+// a pre-order          -> /party-booking
+// view menus           -> /food-and-drink
 // enter a competition  -> /competition
 // give feedback        -> /feedback
-// request a call back. -> /call
+// request a call back. -> /party-enquiry
 
 // New Re-directs to be made:
 //    -> /competition
 //    -> /feedback
-//    -> /call
 
 // var_dump(textColor("#ffff01")); die();
 
 // Define hyperlinks for buttons
-$tableBookingLink = "http://stonegateemail.co.uk/\$dynamic3\$/table";
-$partyBookingLink = "http://stonegateemail.co.uk/\$dynamic3\$/party";
-$preOrderLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
-$menuLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
+$tableBookingLink = "http://stonegateemail.co.uk/\$dynamic3\$/table-booking";
+$partyBookingLink = "http://stonegateemail.co.uk/\$dynamic3\$/party-booking";
+$preOrderLink = "http://stonegateemail.co.uk/\$dynamic3\$/party-booking";
+$menuLink = "http://stonegateemail.co.uk/\$dynamic3\$/food-and-drink";
 $competitionLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
 $feedbackLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
-$callBackLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
+$callBackLink = "http://stonegateemail.co.uk/\$dynamic3\$/party-enquiry";
 
 // Define text for buttons
-$tableBookingText = "Book My Table Now";
+$tableBookingText = "Book My Table";
 $partyBookingText = "Book My Party";
 $preOrderText = "Pre Order Now";
 $menuText = "View Menus Now";
@@ -42,7 +41,7 @@ $basicButton = file_get_contents("../sites/_defaults/button.html");
 $basicSpacer = file_get_contents("../sites/_defaults/basic_spacer.html");
 
 // Styles for button insertion
-$basicStyles = "text-align:center; font-size: 16px; [[FONT_FAMILY_HERE]] font-weight: normal; [[TEXT_COLOR_HERE]] text-decoration: none; [[BACKGROUND_COLOR_HERE]] border-top-width: 15px; border-bottom-width: 15px; border-left-width: 25px; border-right-width: 25px; border-style: solid; [[BORDER_COLOR_HERE]] border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;";
+$basicStyles = "width: 150px; text-align:center; font-size: 16px; [[FONT_FAMILY_HERE]] font-weight: normal; [[TEXT_COLOR_HERE]] text-decoration: none; [[BACKGROUND_COLOR_HERE]] border-top-width: 15px; border-bottom-width: 15px; border-left-width: 25px; border-right-width: 25px; border-style: solid; [[BORDER_COLOR_HERE]] border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;";
 
 // Foreach brand in sites folder
 foreach(glob('../sites/*/templates/*_branded.html') as $filename){
@@ -117,6 +116,9 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   $file = $folder . 'bespoke_blocks/' . $brand . '_pre_order_button.html';
   file_put_contents($file, $preOrderButton);
 
+  $file = $folder . 'bespoke_blocks/' . $brand . '_menu_button.html';
+  file_put_contents($file, $menuButton);
+
   $file = $folder . 'bespoke_blocks/' . $brand . '_competition_button.html';
   file_put_contents($file, $competitionButton);
 
@@ -127,12 +129,17 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   file_put_contents($file, $callBackButton);
 
   // Generate Demo Code
-  $insert = $basicSpacer . $tableBookingButton . $basicSpacer . $partyBookingButton . $basicSpacer . $preOrderButton . $basicSpacer . $competitionButton . $basicSpacer . $feedbackButton . $basicSpacer . $callBackButton . $basicSpacer;
+  $insert = $basicSpacer . $tableBookingButton . $basicSpacer . $partyBookingButton . $basicSpacer . $preOrderButton . $basicSpacer . $menuButton . $basicSpacer . $competitionButton . $basicSpacer . $feedbackButton . $basicSpacer . $callBackButton . $basicSpacer;
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
 
+  echo $output;
+
+  //Remove comments
+  $output = preg_replace('/\{.*?\}/ms', '', $output);
+
   // Save Demo Code Top File
-  $file = '../client.demo/buttons/' . $brand . '_buttons.html';
+  $file = '../client.demo/buttons/inner/' . $brand . '_buttons.html';
   file_put_contents($file, $output);
 }
 
