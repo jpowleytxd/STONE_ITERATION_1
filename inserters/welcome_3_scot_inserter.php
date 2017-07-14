@@ -17,7 +17,11 @@ foreach (glob("../pre_made/*/welcome_21_days_scot.html") as $filename) {
   // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
   // $temp = str_replace('WHAT\'S', 'WHAT&apos;S', $temp);
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
-  $temp = preg_replace('/\'/ms', '\\\'', $temp);
+  $temp = preg_replace('/\'/ms', '&rsquo;', $temp);
+  $temp = preg_replace('/<!-- VenueStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueEnd -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedEnd -->/ms', '', $temp);
   $temp = removeWhiteSpace($temp);
 
   //Brand to uppercase

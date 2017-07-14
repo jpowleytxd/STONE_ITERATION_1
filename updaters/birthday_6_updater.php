@@ -57,7 +57,7 @@ foreach (glob("../pre_made/*/birthday_6_weeks.html") as $filename) {
   foreach($wifiRows as $key => $row){
     $subject = $wifiRows[3];
     $preHeader = str_replace("'", "\'", $wifiRows[4]);
-    $voucher = '0';
+    $voucher = 0;
   }
 
 

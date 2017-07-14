@@ -17,7 +17,11 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
   // $temp = str_replace('WHAT\'S', 'WHAT&apos;S', $temp);
-  $temp = preg_replace('/\'/ms', '\\\'', $temp);
+  $temp = preg_replace('/\'/ms', '&rsquo;', $temp);
+  $temp = preg_replace('/<!-- VenueStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueEnd -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedEnd -->/ms', '', $temp);
   $temp = removeWhiteSpace($temp);
 
   //Brand to uppercase
@@ -62,7 +66,7 @@ foreach (glob("../pre_made/*/wifi_1_day.html") as $filename) {
   foreach($wifiRows as $key => $row){
     $subject = $wifiRows[3];
     $preHeader = str_replace("'", "\'", $wifiRows[4]);
-    $voucher = '0';
+    $voucher = '1';
   }
 
   //Name declaration

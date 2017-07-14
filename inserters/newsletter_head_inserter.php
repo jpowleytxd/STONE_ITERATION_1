@@ -12,7 +12,11 @@ foreach (glob("../pre_made/*/newsletter.html") as $filename) {
   //Remove comment tags
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
   // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
-  $temp = preg_replace('/\'/ms', '\\\'', $temp);
+  // $temp = preg_replace('/\'/ms', '\\\'', $temp);
+  $temp = preg_replace('/<!-- VenueStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueEnd -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedEnd -->/ms', '', $temp);
 
   //Base 64 encode template
   $temp = base64_encode($temp);
@@ -45,16 +49,16 @@ foreach (glob("../pre_made/*/newsletter.html") as $filename) {
 
   //Build SQL statements
   if(($accounts === 'venue') || ($accounts === 'ind')){
-    $sql .= "INSERT INTO `tbl_template_editor_templates` (`template_account_id`, `template_name`, `template_subject`, `template_html`, `template_text`, `template_created_datetime`, `template_type`, `template_image`, `template_status`) VALUES
+    $sql .= "INSERT INTO `tbl_template_editor_templates` (`template_account_id`, `template_name`, `template_subject`, `template_html`, `template_text`, `template_created_datetime`, `template_type`, `template_image`, `template_status`, `template_associated_account_ids`) VALUES
             ('1222', '" . $name . "', NULL, '" . $temp . "',
-            NULL, NULL, 'VENUE: " . $type . "', NULL, '1');\n";
+            NULL, '" . date("Y-m-d H:i:s") . "', 'VENUE: " . $type . "', NULL, '1', '," . $veID . ",');\n";
   } else if($accounts === 'both'){
-    $sql .= "INSERT INTO `tbl_template_editor_templates` (`template_account_id`, `template_name`, `template_subject`, `template_html`, `template_text`, `template_created_datetime`, `template_type`, `template_image`, `template_status`) VALUES
+    $sql .= "INSERT INTO `tbl_template_editor_templates` (`template_account_id`, `template_name`, `template_subject`, `template_html`, `template_text`, `template_created_datetime`, `template_type`, `template_image`, `template_status`, `template_associated_account_ids`) VALUES
             ('1222', '" . $name . "', NULL, '" . $temp . "',
-            NULL, NULL, 'BRAND: " . $type . "', NULL, '1');\n";
-    $sql .= "INSERT INTO `tbl_template_editor_templates` (`template_account_id`, `template_name`, `template_subject`, `template_html`, `template_text`, `template_created_datetime`, `template_type`, `template_image`, `template_status`) VALUES
+            NULL, '" . date("Y-m-d H:i:s") . "', 'BRAND: " . $type . "', NULL, '1', '," . $veID . ",');\n";
+    $sql .= "INSERT INTO `tbl_template_editor_templates` (`template_account_id`, `template_name`, `template_subject`, `template_html`, `template_text`, `template_created_datetime`, `template_type`, `template_image`, `template_status`, `template_associated_account_ids`) VALUES
             ('1222', '" . $name . "', NULL, '" . $temp . "',
-            NULL, NULL, 'VENUE: " . $type . "', NULL, '1');\n";
+            NULL, '" . date("Y-m-d H:i:s") . "', 'VENUE: " . $type . "', NULL, '1', '," . $veID . ",');\n";
   }
 }
 
