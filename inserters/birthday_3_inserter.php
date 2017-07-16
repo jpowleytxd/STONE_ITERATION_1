@@ -66,7 +66,7 @@ foreach (glob("../pre_made/*/birthday_6_weeks.html") as $filename) {
   foreach($birthdayRows as $key => $row){
     $subject = $birthdayRows[3];
     $preHeader = str_replace("'", "\'", $birthdayRows[4]);
-    $voucher = '0';
+    $voucher = '1';
   }
 
   //Name declaration

@@ -72,11 +72,6 @@ for($i = 1; $i <= 3; $i++){
     $voucher = file_get_contents('../sites/' . $brand . '/bespoke_blocks/' . $brand . '_voucher.html');
     $voucherSearch = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
     $voucher = str_replace($voucherSearch, $voucherInstructions, $voucher);
-    $voucher = str_replace('$vouchercode$', $welcomeRows[11], $voucher);
-    $search = '/<!--valid_from_start-->\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*<!--valid_from_end-->/';
-    $voucher = preg_replace($search, '', $voucher);
-    $search = '/<!--customer_start-->\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*<!--customer_end-->/';
-    $voucher = preg_replace($search, '', $voucher);
     $voucher = marginBuilder($voucher);
 
     //Prep Text Two

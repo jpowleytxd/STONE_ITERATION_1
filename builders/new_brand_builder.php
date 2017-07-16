@@ -73,7 +73,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $textOne = str_replace('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales vehicula tellus pellentesque malesuada. Integer malesuada magna felis, id rutrum leo volutpat eget. Morbi finibus et diam in placerat. Suspendisse magna enim, pharetra at erat vel, consequat facilisis mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla est velit, lobortis eu tincidunt sit amet, semper et lorem.', $passwordRows[5], $textOne);
   $styleInsert = 'style="Margin-top: 15px; Margin-bottom: 15px;"';
   $textOne = preg_replace('/##(.+?)##/m', '<p ' . $styleInsert . '>$1</p>', $textOne);
-  $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial;"';
+  $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;"';
   $textOne = str_replace('<td class="text" align="left" valign="0">', '<td class="text" align="center" valign="0" ' . $styleInsert . '>', $textOne);
   $textOne = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $textOne);
   $textOne = str_replace('</tr>', '<td align="center" width="30"></td></tr>', $textOne);
@@ -83,7 +83,7 @@ foreach(glob("../sites/*/templates/*_branded.html") as $filename){
   $textTwo = str_replace('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sodales vehicula tellus pellentesque malesuada. Integer malesuada magna felis, id rutrum leo volutpat eget. Morbi finibus et diam in placerat. Suspendisse magna enim, pharetra at erat vel, consequat facilisis mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla est velit, lobortis eu tincidunt sit amet, semper et lorem.', $passwordRows[8], $textTwo);
   $styleInsert = 'style="Margin-top: 15px; Margin-bottom: 15px;"';
   $textTwo = preg_replace('/##(.+?)##/m', '<p ' . $styleInsert . '>$1</p>', $textTwo);
-  $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: arial;"';
+  $styleInsert = 'style="color: ' . $textColor . ';font-weight: bold; font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;"';
   $textTwo = str_replace('<td class="text" align="left" valign="0">', '<td class="text" align="center" valign="0" ' . $styleInsert . '>', $textTwo);
   $textTwo = str_replace('<tr>', '<tr><td align="center" width="30"></td>', $textTwo);
   $textTwo = str_replace('</tr>', '<td align="center" width="30"></td></tr>', $textTwo);

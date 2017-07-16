@@ -5,24 +5,18 @@ include("common.php");
 // a table booking      -> /table-booking
 // a party booking      -> /party-booking
 // a pre-order          -> /party-booking
-// view menus           -> /food-and-drink
-// enter a competition  -> /competition
-// give feedback        -> /feedback
+// view menus           -> /drinks
+// enter a competition  -> /website
+// find us              -> /contact
 // request a call back. -> /party-enquiry
-
-// New Re-directs to be made:
-//    -> /competition
-//    -> /feedback
-
-// var_dump(textColor("#ffff01")); die();
 
 // Define hyperlinks for buttons
 $tableBookingLink = "http://stonegateemail.co.uk/\$dynamic3\$/table-booking";
 $partyBookingLink = "http://stonegateemail.co.uk/\$dynamic3\$/party-booking";
 $preOrderLink = "http://stonegateemail.co.uk/\$dynamic3\$/party-booking";
-$menuLink = "http://stonegateemail.co.uk/\$dynamic3\$/food-and-drink";
+$menuLink = "http://stonegateemail.co.uk/\$dynamic3\$/drinks";
 $competitionLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
-$feedbackLink = "http://stonegateemail.co.uk/\$dynamic3\$/website";
+$findUsLink = "http://stonegateemail.co.uk/\$dynamic3\$/contact";
 $callBackLink = "http://stonegateemail.co.uk/\$dynamic3\$/party-enquiry";
 
 // Define text for buttons
@@ -31,8 +25,9 @@ $partyBookingText = "Book My Party";
 $preOrderText = "Pre Order Now";
 $menuText = "View Menus Now";
 $competitionText = "Enter Now";
-$feedbackText = "Feedback";
+$findUsText = "Find Us";
 $callBackText = "Request A Call";
+
 
 // Get default button from file
 $basicButton = file_get_contents("../sites/_defaults/button.html");
@@ -47,13 +42,8 @@ $basicStyles = "width: 150px; text-align:center; font-size: 16px; [[FONT_FAMILY_
 foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   $template = file_get_contents($filename);
 
-  // Get current folder structure, file name and remove file name from folder structure
-  preg_match_all('/.*\/(templates\/.*_branded.html)/', $filename, $matches, PREG_SET_ORDER, 0);
-  $currentFile = $matches[0][1];
-  $folder = str_replace($currentFile, '', $filename);
-
-  // Get brand from filename
-  preg_match_all('/.*\/(.*)_branded.html/', $filename, $matches, PREG_SET_ORDER, 0);
+  // Get current brand name
+  preg_match_all('/.*sites\/(.*?)\//', $filename, $matches, PREG_SET_ORDER, 0);
   $brand = $matches[0][1];
 
   // Variables to be set
@@ -62,8 +52,12 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   $backgroundColor;
   $borderColor;
 
-  // Get Background Colour
-  preg_match_all('/"linkColour": "(.*?)"/', $template, $matches, PREG_SET_ORDER, 0);
+  // Get the 1 Col Bespoke Block for this brand
+  $location = "../sites/{$brand}/bespoke_blocks/{$brand}_1_col.html";
+  $colBlock = file_get_contents($location);
+
+  // Get the link coloyr from this block and set the button colours
+  preg_match_all('/"linkColour": "(.*?)"/', $colBlock, $matches, PREG_SET_ORDER, 0);
   $backgroundColor = "background-color: " . $matches[0][1] . ";";
   $borderColor = "border-color: " . $matches[0][1] . ";";
 
@@ -71,7 +65,6 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   $textColor = textColor($matches[0][1]);
   $textColor = "color: " . $textColor . ";";
 
-  // Get Font Fomily
   preg_match_all('/"h1FontFamily": "(.*?)"/', $template, $matches, PREG_SET_ORDER, 0);
   $fontFamily = "font-family: " . $matches[0][1] . ";";
 
@@ -98,50 +91,48 @@ foreach(glob('../sites/*/templates/*_branded.html') as $filename){
   $menuButton = str_replace("[[LINK_HERE]]", $menuLink, $menuButton);
 
   $competitionButton = str_replace("[[TEXT_HERE]]", $competitionText, $venueButton);
-  $competitionButton = str_replace("[[LINK_HERE]]", $feedbackLink, $competitionButton);
+  $competitionButton = str_replace("[[LINK_HERE]]", $competitionLink, $competitionButton);
 
-  $feedbackButton = str_replace("[[TEXT_HERE]]", $feedbackText, $venueButton);
-  $feedbackButton = str_replace("[[LINK_HERE]]", $feedbackText, $feedbackButton);
+  $findUsButton = str_replace("[[TEXT_HERE]]", $findUsText, $venueButton);
+  $findUsButton = str_replace("[[LINK_HERE]]", $findUsLink, $findUsButton);
 
   $callBackButton = str_replace("[[TEXT_HERE]]", $callBackText, $venueButton);
   $callBackButton = str_replace("[[LINK_HERE]]", $callBackLink, $callBackButton);
 
   // Write buttons to file
-  $file = $folder . 'bespoke_blocks/' . $brand . '_table_booking_button.html';
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_table_booking_button.html';
   file_put_contents($file, $tableBookingButton);
 
-  $file = $folder . 'bespoke_blocks/' . $brand . '_party_booking_button.html';
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_party_booking_button.html';
   file_put_contents($file, $partyBookingButton);
 
-  $file = $folder . 'bespoke_blocks/' . $brand . '_pre_order_button.html';
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_pre_order_button.html';
   file_put_contents($file, $preOrderButton);
 
-  $file = $folder . 'bespoke_blocks/' . $brand . '_menu_button.html';
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_menu_button.html';
   file_put_contents($file, $menuButton);
 
-  $file = $folder . 'bespoke_blocks/' . $brand . '_competition_button.html';
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_competition_button.html';
   file_put_contents($file, $competitionButton);
 
-  $file = $folder . 'bespoke_blocks/' . $brand . '_feedback_button.html';
-  file_put_contents($file, $feedbackButton);
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_find_us_button.html';
+  file_put_contents($file, $findUsButton);
 
-  $file = $folder . 'bespoke_blocks/' . $brand . '_call_back_button.html';
+  $file = '../sites/' . $brand . '/' . 'bespoke_blocks/buttons/' . $brand . '_call_back_button.html';
   file_put_contents($file, $callBackButton);
 
   // Generate Demo Code
-  $insert = $basicSpacer . $tableBookingButton . $basicSpacer . $partyBookingButton . $basicSpacer . $preOrderButton . $basicSpacer . $menuButton . $basicSpacer . $competitionButton . $basicSpacer . $feedbackButton . $basicSpacer . $callBackButton . $basicSpacer;
+  $insert = $basicSpacer . $tableBookingButton . $basicSpacer . $partyBookingButton . $basicSpacer . $preOrderButton . $basicSpacer . $menuButton . $basicSpacer . $competitionButton . $basicSpacer . $findUsButton . $basicSpacer . $callBackButton . $basicSpacer;
   $search = "/<!-- User Content: Main Content Start -->\s*<!-- User Content: Main Content End -->/";
   $output = preg_replace($search, "<!-- User Content: Main Content Start -->" . $insert . "<!-- User Content: Main Content End -->", $template);
-
-  echo $output;
 
   //Remove comments
   $output = preg_replace('/\{.*?\}/ms', '', $output);
 
   // Save Demo Code Top File
-  $file = '../client.demo/buttons/inner/' . $brand . '_buttons.html';
+  $file = '../client.demo/buttons/' . $brand . '_buttons.html';
   file_put_contents($file, $output);
+
 }
 
-
-?>
+ ?>

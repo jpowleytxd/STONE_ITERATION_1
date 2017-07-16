@@ -66,7 +66,7 @@ foreach (glob("../pre_made/*/wifi_21_days.html") as $filename) {
   foreach($wifiRows as $key => $row){
     $subject = $wifiRows[3];
     $preHeader = str_replace("'", "\'", $wifiRows[4]);
-    $voucher = '0';
+    $voucher = '1';
   }
 
   //Name declaration

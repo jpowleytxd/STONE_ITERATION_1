@@ -66,7 +66,7 @@ foreach (glob("../pre_made/*/welcome_21_days_uk.html") as $filename) {
   foreach($welcomeRows as $key => $row){
     $subject = $welcomeRows[3];
     $preHeader = $welcomeRows[4];
-    $voucher = '0';
+    $voucher = '1';
   }
 
   //Name declaration

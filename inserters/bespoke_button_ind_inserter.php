@@ -5,18 +5,23 @@ include 'common.php';
 $saveToFile = $_POST['saveStatus'];
 
 $sql = null;
-foreach (glob("../sites/*/bespoke_blocks/*_button.html") as $filename){
+foreach (glob("../sites/*/bespoke_blocks/buttons/*_button.html") as $filename){
   $temp = file_get_contents($filename);
 
   //get file names
-  preg_match_all('/.*?\/.*?\/(.*?)\/.*?\/(.*?).html/', $filename, $matches);
+  preg_match_all('/.*?\/.*?\/(.*?)\/bespoke_blocks\/buttons\/(.*?).html/', $filename, $matches);
   $brand = $matches[1][0];
   $type = $matches[2][0];
   $type = str_replace($brand . '_', '', $type);
 
   //Remove comment tags
   $temp = preg_replace('/\{.*?\}/ms', '', $temp);
-  $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  // $temp = preg_replace('/\<!--.*?\-->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- VenueEnd -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedStart -->/ms', '', $temp);
+  $temp = preg_replace('/<!-- BrandedEnd -->/ms', '', $temp);
+  $temp = preg_replace('/\'/ms', '&rsquo;', $temp);
 
   //Base 64 encode template
   $temp = base64_encode($temp);
